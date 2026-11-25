@@ -1,0 +1,326 @@
+<header class="header">
+  <nav class="nav-capsule" id="navbar" aria-label="Navegación principal">
+    <a href="#inicio" class="logo-cfp" aria-label="Campesinos Forjadores de Paz, inicio">
+      <span class="logo-text">
+        <span>C</span><span>F</span><span>P</span>
+      </span>
+
+      <span class="logo-divider"></span>
+
+      <span class="logo-name">
+        Campesinos<br />
+        Forjadores de Paz
+      </span>
+    </a>
+
+    <div class="nav-links" id="navMenu">
+      <a href="#inicio" class="nav-item active" aria-current="location">Inicio</a>
+      <a href="#acerca-de" class="nav-item">Nosotros</a>
+      <a href="#proyectos" class="nav-item">Proyectos</a>
+      <a href="#poblacion" class="nav-item">Comunidad</a>
+      <a href="#noticias" class="nav-item">Noticias</a>
+    </div>
+
+    <div class="nav-actions">
+      <a href="#contactanos" class="btn btn-primary contactanos-btn">
+        Contáctanos
+
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path
+            d="M5 12h14m-6-6 6 6-6 6"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </a>
+
+      <button
+        class="hamburger-btn"
+        id="menuToggle"
+        type="button"
+        aria-label="Abrir menú"
+        aria-controls="navMenu"
+        aria-expanded="false"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<style>
+  /* Posición y aparición del encabezado */
+  .header {
+    position: fixed;
+    top: 18px;
+    left: 0;
+    width: 100%;
+    z-index: var(--z-header);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(-20px);
+    transition:
+      opacity var(--transition-slow),
+      transform var(--transition-slow),
+      visibility var(--transition-slow);
+  }
+
+  .header.visible {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+
+  /* Barra de navegación */
+  .nav-capsule {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    width: min(94%, var(--container-width));
+    min-height: 76px;
+    margin-inline: auto;
+    padding: 12px 24px;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: var(--radius-lg);
+    background: rgba(17, 43, 30, 0.88);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18);
+    transition:
+      background var(--transition-normal),
+      box-shadow var(--transition-normal),
+      min-height var(--transition-normal);
+  }
+
+  .nav-capsule.scrolled {
+    min-height: 66px;
+    background: rgba(13, 36, 25, 0.96);
+    box-shadow: 0 14px 45px rgba(0, 0, 0, 0.24);
+  }
+
+  /* Identidad de la asociación */
+  .logo-cfp {
+    display: inline-flex;
+    align-items: center;
+    gap: 13px;
+    flex-shrink: 0;
+    color: var(--color-text-light);
+    text-decoration: none;
+  }
+
+  .logo-text {
+    display: flex;
+    gap: 1px;
+    font-family: var(--font-display);
+    font-size: 40px;
+    line-height: 1;
+    letter-spacing: 1px;
+  }
+
+  .logo-text span:nth-child(2) {
+    color: var(--color-accent);
+  }
+
+  .logo-divider {
+    width: 1px;
+    height: 32px;
+    background: rgba(255, 255, 255, 0.3);
+  }
+
+  .logo-name {
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1.4;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  /* Enlaces de navegación */
+  .nav-links {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  .nav-item {
+    position: relative;
+    padding: 10px 13px;
+    border-radius: var(--radius-md);
+    color: rgba(255, 255, 255, 0.78);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    text-decoration: none;
+    white-space: nowrap;
+    transition:
+      color var(--transition-fast),
+      background var(--transition-fast);
+  }
+
+  .nav-item:hover,
+  .nav-item.active {
+    color: var(--color-accent);
+    background: rgba(183, 237, 100, 0.1);
+  }
+
+  /* Acciones de navegación */
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .contactanos-btn {
+    flex-shrink: 0;
+    gap: 12px;
+    padding: 12px 18px;
+    border-radius: var(--radius-md);
+    white-space: nowrap;
+  }
+
+  .contactanos-btn svg {
+    width: 17px;
+    height: 17px;
+    transition: transform var(--transition-normal);
+  }
+
+  .contactanos-btn:hover svg {
+    transform: translateX(3px);
+  }
+
+  /* Botón del menú móvil */
+  .hamburger-btn {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    width: 44px;
+    height: 44px;
+    padding: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: var(--radius-md);
+    background: rgba(255, 255, 255, 0.08);
+    cursor: pointer;
+  }
+
+  .hamburger-btn span {
+    display: block;
+    width: 21px;
+    height: 2px;
+    border-radius: 2px;
+    background: #fff;
+    transition:
+      transform var(--transition-normal),
+      opacity var(--transition-normal);
+  }
+
+  .hamburger-btn.is-open span:first-child {
+    transform: translateY(7px) rotate(45deg);
+  }
+
+  .hamburger-btn.is-open span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .hamburger-btn.is-open span:last-child {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  /* Navegación en tabletas y móviles */
+  @media (max-width: 1050px) {
+    .nav-capsule {
+      min-height: 68px;
+      padding: 10px 16px;
+      border-radius: 20px;
+    }
+
+    .hamburger-btn {
+      display: flex;
+    }
+
+    .nav-links {
+      position: absolute;
+      top: calc(100% + 10px);
+      left: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      width: 100%;
+      padding: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 18px;
+      background: rgba(13, 36, 25, 0.98);
+      box-shadow: 0 18px 35px rgba(0, 0, 0, 0.25);
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transform: translateY(-10px);
+      transition:
+        opacity var(--transition-normal),
+        transform var(--transition-normal),
+        visibility var(--transition-normal);
+    }
+
+    .nav-links.open {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    .nav-item {
+      padding: 14px 16px;
+      font-size: 14px;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .header {
+      top: 12px;
+    }
+
+    .nav-capsule {
+      width: 94%;
+      gap: 10px;
+      padding: 10px 12px;
+    }
+
+    .logo-text {
+      font-size: 34px;
+    }
+
+    .logo-name,
+    .logo-divider {
+      display: none;
+    }
+
+    .contactanos-btn {
+      padding: 12px;
+      font-size: 12px;
+    }
+
+    .contactanos-btn svg {
+      display: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .header,
+    .nav-capsule,
+    .nav-links,
+    .nav-item,
+    .contactanos-btn,
+    .hamburger-btn span {
+      transition: none;
+    }
+  }
+</style>

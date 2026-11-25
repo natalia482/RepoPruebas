@@ -1,0 +1,74 @@
+
+---
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+
+import "../css/global.css";
+import "../css/animaciones.css";
+
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta
+      name="description"
+      content="Conoce la Asociación Campesinos Forjadores de Paz de Silvania, Cundinamarca, y sus iniciativas para fortalecer el desarrollo rural."
+    />
+    <meta name="theme-color" content="#173d27" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta
+      property="og:description"
+      content="Una comunidad campesina comprometida con el desarrollo rural, la solidaridad y la construcción de paz."
+    />
+    <title>{title}</title>
+
+    <!--Fuente -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <Header />
+    <main>
+      <slot />
+    </main>
+
+    <Footer />
+
+    <script>
+      import "../js/index.js";
+    </script>
+  </body>
+</html>
+
+<style is:global>
+  /* Reset básico para responsividad */
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html,
+  body {
+    width: 100%;
+    overflow-x: hidden; /* Evita scroll horizontal no deseado por animaciones */
+    font-family: system-ui, sans-serif;
+  }
+</style>

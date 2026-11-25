@@ -1,0 +1,823 @@
+---
+import { getImage } from "astro:assets";
+
+import tarjetaImg from "../assets/projectsvision/tarjetasub.jpg";
+import insumosImg from "../assets/projectsvision/insumos.jpg";
+import arandanerasImg from "../assets/projectsvision/arandaneras.jpg";
+import cfpAppImg from "../assets/projectsvision/CFP.jpg";
+import sedeImg from "../assets/projectsvision/mejoramientosede.jpg";
+
+const proyectosData = [
+  {
+    title: "SUBSIDIO TARJETA CAMPESINA",
+    image: tarjetaImg,
+    tag: "Social",
+  },
+  {
+    title: "INSUMOS AGRÍCOLAS",
+    image: insumosImg,
+    tag: "Producción",
+  },
+  {
+    title: "MUJERES ARANDANERAS",
+    image: arandanerasImg,
+    tag: "Emprendimiento",
+  },
+];
+
+const visionData = [
+  {
+    title: "CFP APP",
+    image: cfpAppImg,
+    tag: "Tecnología",
+  },
+  {
+    title: "MEJORAMIENTO DE LA SEDE",
+    image: sedeImg,
+    tag: "Infraestructura",
+  },
+];
+
+// Optimiza las imágenes antes de renderizar las tarjetas.
+async function prepareImages(items) {
+  return Promise.all(
+    items.map(async (item, index) => {
+      const image = await getImage({
+        src: item.image,
+        width: 1000,
+        format: "webp",
+      });
+
+      return {
+        ...item,
+        number: String(index + 1).padStart(2, "0"),
+        image,
+      };
+    })
+  );
+}
+
+const proyectos = await prepareImages(proyectosData);
+const vision = await prepareImages(visionData);
+---
+
+<section
+  id="proyectos"
+  class="projects-section"
+  aria-labelledby="projects-title"
+>
+  <div class="projects-background" aria-hidden="true"></div>
+
+  <div class="container projects-container">
+    <header class="projects-header">
+      <div class="projects-topline">
+        <span class="projects-eyebrow">
+          <span class="eyebrow-line"></span>
+          02 / NUESTRO IMPACTO
+        </span>
+
+        <span class="projects-location">
+          CFP 
+        </span>
+      </div>
+
+      <h2 id="projects-title" class="projects-title">
+        PROYECTOS QUE
+        <span>TRANSFORMAN.</span>
+      </h2>
+
+      <div class="projects-introduction">
+        <p>
+          Iniciativas que fortalecen nuestra comunidad
+          campesina y oportunidades que queremos construir
+          para el futuro.
+        </p>
+      </div>
+    </header>
+
+    <div
+      class="projects-tabs"
+      role="tablist"
+      aria-label="Proyectos y visión"
+    >
+      <button
+        id="btn-proyectos"
+        class="projects-tab is-active"
+        type="button"
+        role="tab"
+        aria-selected="true"
+        aria-controls="tab-proyectos"
+        tabindex="0"
+      >
+        <span class="tab-number"> </span>
+        Proyectos
+        <span class="tab-count"> </span>
+      </button>
+
+      <button
+        id="btn-vision"
+        class="projects-tab"
+        type="button"
+        role="tab"
+        aria-selected="false"
+        aria-controls="tab-vision"
+        tabindex="-1"
+      >
+        <span class="tab-number"> </span>
+        Nuestra visión
+        <span class="tab-count"> </span>
+      </button>
+    </div>
+
+    <div
+      id="tab-proyectos"
+      class="projects-panel"
+      role="tabpanel"
+      aria-labelledby="btn-proyectos"
+      tabindex="0"
+    >
+      <div class="panel-heading">
+        <p>
+          Algunos de nuestros proyectos en la
+          Asociación Campesinos Forjadores de Paz.
+        </p>
+      </div>
+
+      <div class="projects-grid projects-grid-three">
+        {proyectos.map((item, index) => (
+          <article
+            class:list={[
+              "project-card",
+              { "project-card-featured": index === 0 },
+            ]}
+          >
+             <div class="project-card-inner">
+            <div class="project-image">
+              <img
+                src={item.image.src}
+                width={item.image.attributes.width}
+                height={item.image.attributes.height}
+                alt={`Imagen del proyecto ${item.title}`}
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+
+            <div class="project-shade" aria-hidden="true"></div>
+
+            <div class="project-card-top">
+          
+              <span class="project-card-category">
+                {item.tag}
+              </span>
+            </div>
+
+            <div class="project-card-bottom">
+              <div class="project-card-information">
+                <span class="project-card-label">
+                  PROYECTO
+                </span>
+
+                <h3>{item.title}</h3>
+              </div>
+
+              <span class="project-card-decoration" aria-hidden="true">
+                ↗
+              </span>
+            </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+
+    <div
+      id="tab-vision"
+      class="projects-panel"
+      role="tabpanel"
+      aria-labelledby="btn-vision"
+      tabindex="0"
+      hidden
+    >
+      <div class="panel-heading">
+        <p>
+          Ideas e iniciativas que queremos impulsar
+          para seguir creciendo como asociación.
+        </p>
+      </div>
+
+      <div class="projects-grid projects-grid-two">
+        {vision.map((item) => (
+          <article class="project-card">
+          <div class="project-card-inner">
+            <div class="project-image">
+              <img
+                src={item.image.src}
+                width={item.image.attributes.width}
+                height={item.image.attributes.height}
+                alt={`Imagen de la iniciativa ${item.title}`}
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+
+            <div class="project-shade" aria-hidden="true"></div>
+
+            <div class="project-card-top">  
+              <span class="project-card-category">
+                {item.tag}
+              </span>
+            </div>
+
+            <div class="project-card-bottom">
+              <div class="project-card-information">
+                <span class="project-card-label">
+                  VISIÓN A FUTURO
+                </span>
+
+                <h3>{item.title}</h3>
+              </div>
+
+              <span class="project-card-decoration" aria-hidden="true">
+                ↗
+              </span>
+            </div>
+          </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .projects-section {
+    position: relative;
+    isolation: isolate;
+    width: 100%;
+    padding: clamp(90px, 10vw, 150px) 0 45px;
+    overflow: hidden;
+    background: #0d2419;
+    color: #ffffff;
+  }
+
+  .projects-background {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background:
+      radial-gradient(
+        ellipse at 90% 5%,
+        rgba(183, 237, 100, 0.1),
+        transparent 38%
+      ),
+      linear-gradient(
+        180deg,
+        #0d2419 0%,
+        #123521 55%,
+        #0d2419 100%
+      );
+  }
+
+  .projects-container {
+    position: relative;
+    width: min(100% - 48px, 1320px);
+    margin-inline: auto;
+  }
+
+  /* Encabezado */
+  .projects-header {
+    margin-bottom: 55px;
+  }
+
+  .projects-topline,
+  .projects-introduction {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+  }
+
+  .projects-topline {
+    margin-bottom: 35px;
+  }
+
+  .projects-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    color: #b7ed64;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+  }
+
+  .eyebrow-line {
+    width: 36px;
+    height: 1px;
+    background: currentColor;
+  }
+
+  .projects-location {
+    color: rgba(255, 255, 255, 0.45);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+  }
+
+  .projects-title {
+    max-width: 1200px;
+    margin: 0 0 30px;
+    font-family: var(--font-display, Impact, sans-serif);
+    font-size: clamp(3.5rem, 9.5vw, 9.5rem);
+    font-weight: 400;
+    line-height: 0.95;
+    letter-spacing: -0.025em;
+    text-wrap: balance;
+  }
+
+  .projects-title span {
+    display: block;
+    color: #b7ed64;
+  }
+
+  .projects-introduction p {
+    max-width: 580px;
+    margin: 0;
+    color: rgba(255, 255, 255, 0.72);
+    font-size: clamp(1rem, 1.4vw, 1.2rem);
+    line-height: 1.7;
+  }
+
+  .projects-counter {
+    flex-shrink: 0;
+    color: #b7ed64;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+  }
+
+  /* Navegación entre paneles */
+  .projects-tabs {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: fit-content;
+    max-width: 100%;
+    margin-bottom: 35px;
+    padding: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 100px;
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  .projects-tab {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    min-height: 48px;
+    padding: 12px 22px;
+    border: 0;
+    border-radius: 100px;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.68);
+    font: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    white-space: nowrap;
+    cursor: pointer;
+    transition:
+      background 0.3s ease,
+      color 0.3s ease;
+  }
+
+  .projects-tab:hover {
+    color: #ffffff;
+  }
+
+  .projects-tab.is-active {
+    background: #b7ed64;
+    color: #102719;
+  }
+
+  .projects-tab:focus-visible {
+    outline: 2px solid #ffffff;
+    outline-offset: 3px;
+  }
+
+  .tab-number,
+  .tab-count {
+    font-size: 10px;
+    font-weight: 700;
+    opacity: 0.7;
+  }
+
+  /* Paneles */
+  .projects-panel {
+    width: 100%;
+  }
+
+  .projects-panel[hidden] {
+    display: none !important;
+  }
+
+  .panel-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 20px;
+    margin-bottom: 25px;
+  }
+
+  .panel-heading p {
+    max-width: 620px;
+    margin: 0;
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  .panel-heading > span {
+    flex-shrink: 0;
+    color: #b7ed64;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+  }
+
+  /* Distribución de las tarjetas */
+  .projects-grid {
+    display: grid;
+    gap: 18px;
+    width: 100%;
+  }
+
+  .projects-grid-three {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .projects-grid-two {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .project-card {
+    position: relative;
+    min-width: 0;
+    height: clamp(360px, 40vw, 540px);
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 18px;
+    background: #173d27;
+    isolation: isolate;
+  }
+
+  .projects-grid-two .project-card {
+    height: clamp(380px, 43vw, 560px);
+  }
+
+  .project-image,
+  .project-shade {
+    position: absolute;
+    inset: 0;
+  }
+
+  .project-image {
+    z-index: -2;
+    overflow: hidden;
+  }
+
+  .project-image img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    object-position: center;
+    transition:
+      transform 1s cubic-bezier(0.2, 0.8, 0.2, 1),
+      filter 0.6s ease;
+  }
+
+  .project-shade {
+    z-index: -1;
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.3) 0%,
+      rgba(0, 0, 0, 0.04) 35%,
+      rgba(0, 0, 0, 0.78) 100%
+    );
+  }
+
+  .project-card-top,
+  .project-card-bottom {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 25px;
+  }
+
+  .project-card-top {
+    top: 0;
+    align-items: flex-start;
+  }
+
+  .project-card-bottom {
+    bottom: 0;
+    align-items: flex-end;
+  }
+
+  .project-card-number {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+  }
+
+  .project-card-category {
+    padding: 8px 12px;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 100px;
+    background: rgba(10, 30, 20, 0.3);
+    color: #ffffff;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    backdrop-filter: blur(8px);
+  }
+
+  .project-card-label {
+    display: block;
+    margin-bottom: 10px;
+    color: #b7ed64;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+  }
+
+  .project-card-information h3 {
+    max-width: 360px;
+    margin: 0;
+    color: #ffffff;
+    font-family: var(--font-display, Impact, sans-serif);
+    font-size: clamp(1.7rem, 2.6vw, 2.8rem);
+    font-weight: 400;
+    line-height: 1.05;
+    overflow-wrap: anywhere;
+  }
+
+  .project-card-decoration {
+    display: grid;
+    flex-shrink: 0;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border: 1px solid rgba(255, 255, 255, 0.55);
+    border-radius: 50%;
+    color: #ffffff;
+    font-size: 22px;
+    transition:
+      transform 0.35s ease,
+      background 0.35s ease,
+      color 0.35s ease;
+  }
+
+  /* Interacción visual */
+ @media (hover: hover) and (pointer: fine) {
+  .project-card:hover .project-image img {
+    filter: saturate(1.1);
+  }
+}
+
+    .project-card:hover .project-card-decoration {
+      transform: rotate(45deg);
+      background: #b7ed64;
+      color: #102719;
+    }
+  }
+
+  /* Pie */
+  .projects-footer {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin-top: 55px;
+    padding-top: 25px;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+  }
+  /* Profundidad de las tarjetas */
+.project-card {
+  perspective: 1100px;
+  --pointer-x: 50%;
+  --pointer-y: 50%;
+}
+
+.project-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+}
+
+/* Reflejo que sigue el cursor */
+.project-card-inner::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+
+  background: radial-gradient(
+    circle at var(--pointer-x) var(--pointer-y),
+    rgba(183, 237, 100, 0.16),
+    transparent 45%
+  );
+
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s ease;
+}
+
+  /* Tabletas */
+  @media (max-width: 950px) {
+    .projects-grid-three {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .project-card-featured {
+      grid-column: 1 / -1;
+    }
+
+    .project-card-featured .project-card-information h3 {
+      max-width: 650px;
+    }
+  }
+
+  /* Móviles */
+  @media (max-width: 600px) {
+    .projects-section {
+      padding: 90px 0 30px;
+    }
+
+    .projects-container {
+      width: min(100% - 32px, 1320px);
+    }
+
+    .projects-topline {
+      align-items: flex-start;
+      margin-bottom: 25px;
+    }
+
+    .projects-location {
+      display: none;
+    }
+
+    .projects-title {
+      font-size: clamp(3rem, 13vw, 5rem);
+    }
+
+    .projects-introduction {
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .projects-tabs {
+      width: 100%;
+      gap: 4px;
+      padding: 5px;
+    }
+
+    .projects-tab {
+      flex: 1;
+      min-width: 0;
+      gap: 6px;
+      padding: 12px 8px;
+      font-size: 12px;
+    }
+
+    .tab-number {
+      display: none;
+    }
+
+    .panel-heading {
+      align-items: flex-start;
+    }
+
+    .panel-heading p {
+      font-size: 13px;
+    }
+
+    .projects-grid-three,
+    .projects-grid-two {
+      grid-template-columns: 1fr;
+    }
+
+    .project-card-featured {
+      grid-column: auto;
+    }
+
+    .project-card,
+    .projects-grid-two .project-card {
+      height: 420px;
+    }
+
+    .project-card-top,
+    .project-card-bottom {
+      padding: 20px;
+    }
+
+    .project-card-information h3 {
+      font-size: clamp(2rem, 8vw, 3rem);
+    }
+
+    .projects-footer {
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 40px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .project-image img,
+    .project-card-decoration,
+    .projects-tab {
+      transition: none;
+    }
+  }
+  @media (hover: hover) and (pointer: fine) {
+  .project-card:hover .project-card-inner::after {
+    opacity: 1;
+  }
+}
+
+/* El texto permanece por encima del reflejo */
+.project-card-top,
+.project-card-bottom {
+  z-index: 2;
+}
+
+/* Reserva espacio para el desplazamiento de la imagen */
+.project-image img {
+  transform: scale(1.12);
+}
+
+/* Evita efectos innecesarios en pantallas táctiles */
+@media (hover: none), (pointer: coarse) {
+  .project-card-inner {
+    transform: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-card-inner {
+    transform: none !important;
+  }
+
+  .project-card-inner::after {
+    display: none;
+  }
+}
+</style>
+
+<script>
+import {
+  initProjectsVision,
+  destroyProjectsVision,
+} from "../js/components/projectsVision.js";
+
+import {
+  initProjectsEffects,
+  destroyProjectsEffects,
+} from "../js/components/projectsEffects.js";
+
+function initProjectsSection() {
+  initProjectsVision();
+  initProjectsEffects();
+}
+
+function destroyProjectsSection() {
+  destroyProjectsEffects();
+  destroyProjectsVision();
+}
+
+initProjectsSection();
+
+document.addEventListener(
+  "astro:page-load",
+  initProjectsSection
+);
+
+document.addEventListener(
+  "astro:before-swap",
+  destroyProjectsSection
+)
+</script>

@@ -1,0 +1,511 @@
+---
+const highlights = [
+  {
+    number: "01",
+    title: "Nuestra tierra",
+    description: "Silvania, Cundinamarca",
+  },
+  {
+    number: "02",
+    title: "Nuestra comunidad",
+    description: "Mujeres rurales y productores",
+  },
+  {
+    number: "03",
+    title: "Nuestro propósito",
+    description: "Fortalecer el desarrollo campesino",
+  },
+];
+---
+
+<section id="acerca-de" class="about-section" aria-labelledby="about-title">
+  <div class="about-background" aria-hidden="true">
+    <div class="about-glow"></div>
+    <div class="about-orbit about-orbit-one"></div>
+    <div class="about-orbit about-orbit-two"></div>
+  </div>
+
+  <div class="container about-container">
+    <div class="about-heading">
+      <span class="about-eyebrow">
+        <span class="eyebrow-line"></span>
+        Conoce nuestra asociación
+      </span>
+
+      <div class="about-title-wrapper" data-about-water>
+        <h2 id="about-title" class="about-title">
+          <span>SEMBRAMOS</span>
+          <span class="title-accent">FUTURO.</span>
+        </h2>
+
+        <canvas class="about-water-canvas" aria-hidden="true"></canvas>
+      </div>
+
+      <p class="about-interaction-hint">
+        Mueve el cursor sobre el título y descubre las ondas.
+      </p>
+    </div>
+
+    <div class="about-content">
+      <div class="about-intro">
+        <span class="about-index">01 / QUIÉNES SOMOS</span>
+
+        <h3>
+          Nuestra fuerza nace
+          <span>del campo.</span>
+        </h3>
+      </div>
+
+      <div class="about-description">
+        <p>
+          Campesinos Forjadores de Paz es una asociación conformada
+          principalmente por mujeres rurales y productores de las veredas de
+          Silvania, Cundinamarca.
+        </p>
+
+        <p>
+          Trabajamos para mejorar la calidad de vida de las familias campesinas
+          mediante iniciativas y proyectos de producción agropecuaria.
+        </p>
+
+        <a href="#proyectos" class="btn btn-primary about-button">
+          Conoce nuestros proyectos
+          <span aria-hidden="true">↗</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="about-highlights">
+      {highlights.map((item) => (
+        <article class="highlight-item">
+          <span class="highlight-number">{item.number}</span>
+
+          <div class="highlight-content">
+            <h4>{item.title}</h4>
+            <p>{item.description}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <div class="about-bottom" aria-hidden="true">
+      <span>CAMPESINOS FORJADORES DE PAZ</span>
+      <span>SILVANIA · CUNDINAMARCA</span>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Estructura principal */
+  .about-section {
+    position: relative;
+    min-height: 100vh;
+    padding: clamp(110px, 12vw, 180px) 0 35px;
+    overflow: hidden;
+    isolation: isolate;
+    background: var(--color-primary-dark);
+    color: var(--color-text-light);
+  }
+
+  .about-container {
+    position: relative;
+    z-index: 2;
+  }
+
+  /* Fondo de la sección */
+  .about-background {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+    background:
+      radial-gradient(
+        ellipse at 80% 20%,
+        rgba(183, 237, 100, 0.12),
+        transparent 42%
+      ),
+      linear-gradient(145deg, #173d27 0%, #0d2419 55%, #071910 100%);
+  }
+
+  .about-glow {
+    position: absolute;
+    top: 5%;
+    right: -15%;
+    width: min(65vw, 850px);
+    aspect-ratio: 1;
+    border-radius: 50%;
+
+    background: radial-gradient(
+      circle,
+      rgba(183, 237, 100, 0.22),
+      rgba(46, 125, 50, 0.09) 45%,
+      transparent 70%
+    );
+
+    filter: blur(35px);
+  }
+
+  .about-orbit {
+    position: absolute;
+    border: 1px solid rgba(183, 237, 100, 0.18);
+    border-radius: 50%;
+  }
+
+  .about-orbit-one {
+    width: 650px;
+    height: 650px;
+    top: -220px;
+    right: -250px;
+  }
+
+  .about-orbit-two {
+    width: 950px;
+    height: 950px;
+    top: -370px;
+    right: -400px;
+  }
+
+  /* Encabezado */
+  .about-heading {
+    margin-bottom: clamp(65px, 9vw, 125px);
+  }
+
+  .about-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 30px;
+    color: var(--color-accent);
+    font-size: var(--text-xs);
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  .eyebrow-line {
+    width: 36px;
+    height: 1px;
+    background: currentColor;
+  }
+
+  /* Título interactivo */
+  .about-title-wrapper {
+    position: relative;
+    width: 100%;
+    isolation: isolate;
+    cursor: default;
+  }
+
+  .about-title {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(5rem, 15vw, 15rem);
+    font-weight: 400;
+    line-height: 0.85;
+    letter-spacing: -0.015em;
+  }
+
+  .about-title span {
+    display: block;
+    width: fit-content;
+    max-width: 100%;
+  }
+
+  .title-accent {
+    margin-left: clamp(0px, 10vw, 160px);
+    color: var(--color-accent);
+  }
+
+  .about-water-canvas {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: block;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .about-title-wrapper.water-active .about-title {
+    opacity: 0;
+  }
+
+  .about-title-wrapper.water-active .about-water-canvas {
+    opacity: 1;
+  }
+
+  .about-interaction-hint {
+    margin: 24px 0 0;
+    color: rgba(255, 255, 255, 0.48);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* Contenido de la asociación */
+  .about-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(35px, 7vw, 110px);
+    align-items: start;
+    margin-bottom: clamp(75px, 10vw, 140px);
+  }
+
+  .about-index {
+    display: block;
+    margin-bottom: 25px;
+    color: var(--color-accent);
+    font-size: var(--text-xs);
+    font-weight: 700;
+    letter-spacing: 0.18em;
+  }
+
+  .about-intro h3 {
+    max-width: 520px;
+    margin: 0;
+    font-size: clamp(2.5rem, 5vw, 5rem);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.05em;
+  }
+
+  .about-intro h3 span {
+    color: var(--color-accent);
+  }
+
+  .about-description {
+    max-width: 540px;
+    padding-top: 35px;
+  }
+
+  .about-description p {
+    margin: 0 0 22px;
+    color: rgba(255, 255, 255, 0.78);
+    font-size: clamp(1rem, 1.35vw, 1.2rem);
+    line-height: 1.8;
+  }
+
+  .about-button {
+    margin-top: 20px;
+  }
+
+  .about-button span {
+    font-size: 1.25rem;
+    transition: transform var(--transition-normal);
+  }
+
+  .about-button:hover span {
+    transform: translate(3px, -3px);
+  }
+
+  /* Información complementaria */
+  .about-highlights {
+    --about-line-progress: 0%;
+
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 25px;
+    padding: 35px 0;
+
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  }
+
+  .about-highlights::before,
+  .about-highlights::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: var(--about-line-progress);
+    height: 1px;
+
+    background: var(--color-accent);
+    pointer-events: none;
+  }
+
+  .about-highlights::before {
+    top: -1px;
+  }
+
+  .about-highlights::after {
+    bottom: -1px;
+  }
+
+  .highlight-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .highlight-number {
+    padding-top: 5px;
+    color: var(--color-accent);
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+  }
+
+  .highlight-content h4 {
+    margin: 0 0 8px;
+    font-size: 1.15rem;
+    font-weight: 700;
+  }
+
+  .highlight-content p {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.55);
+    font-size: var(--text-sm);
+    line-height: 1.6;
+  }
+
+  /* Pie de sección */
+  .about-bottom {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    padding-top: 25px;
+    color: rgba(255, 255, 255, 0.35);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+  }
+
+  /* Tabletas */
+  @media (max-width: 900px) {
+    .about-content {
+      grid-template-columns: 1fr;
+      gap: 30px;
+    }
+
+    .about-description {
+      padding-top: 0;
+    }
+
+    .about-title {
+      font-size: clamp(5rem, 16vw, 10rem);
+    }
+
+    .about-highlights {
+      gap: 18px;
+    }
+  }
+
+  /* Móviles */
+  @media (max-width: 600px) {
+    .about-section {
+      padding-top: 110px;
+      padding-bottom: 25px;
+    }
+
+    .about-heading {
+      margin-bottom: 70px;
+    }
+
+    .about-eyebrow {
+      font-size: 10px;
+      letter-spacing: 0.12em;
+    }
+
+    .about-title {
+      font-size: clamp(3.8rem, 17vw, 6.5rem);
+      line-height: 0.9;
+    }
+
+    .title-accent {
+      margin-left: 0;
+    }
+
+    .about-interaction-hint {
+      display: none;
+    }
+
+    .about-intro h3 {
+      font-size: clamp(2.4rem, 10vw, 3.8rem);
+    }
+
+    .about-highlights {
+      grid-template-columns: 1fr;
+      gap: 25px;
+    }
+
+    .highlight-item {
+      gap: 16px;
+    }
+
+    .about-bottom {
+      flex-direction: column;
+      gap: 8px;
+      font-size: 9px;
+    }
+
+    .about-orbit-one {
+      right: -480px;
+    }
+
+    .about-orbit-two {
+      right: -700px;
+    }
+  }
+
+  @media (hover: none), (pointer: coarse) {
+    .about-interaction-hint {
+      display: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .about-water-canvas {
+      display: none;
+    }
+
+    .about-title-wrapper.water-active .about-title {
+      opacity: 1;
+    }
+
+    .about-button span {
+      transition: none;
+    }
+    .about-highlights {
+      --about-line-progress: 100%;
+    }
+  }
+</style>
+
+<script>
+  import { initAbout, destroyAbout } from "../js/components/about.js";
+
+  import {
+    initWaterText,
+    destroyWaterText,
+  } from "../js/components/waterText.js";
+
+  import {
+    initAboutEffects,
+    destroyAboutEffects,
+  } from "../js/components/aboutEffects.js";
+
+  // Inicializa las animaciones de la sección.
+  function initAboutSection() {
+    initAbout();
+    initWaterText();
+    initAboutEffects();
+  }
+
+  // Libera los recursos antes de cambiar de página.
+  function destroyAboutSection() {
+    destroyAboutEffects();
+    destroyWaterText();
+    destroyAbout();
+  }
+
+  initAboutSection();
+
+  document.addEventListener("astro:page-load", initAboutSection);
+
+  document.addEventListener("astro:before-swap", destroyAboutSection);
+</script>

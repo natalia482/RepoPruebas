@@ -1,0 +1,1270 @@
+---
+
+const currentYear = new Date().getFullYear();
+
+const navigation = [
+
+  { label: "Acerca de", href: "#acerca-de" },
+
+  { label: "Proyectos", href: "#proyectos" },
+
+  { label: "Población", href: "#poblacion" },
+
+  { label: "Noticias", href: "#noticias" },
+
+];
+
+const contact = {
+
+  whatsapp: "https://wa.me/573138037661",
+
+  whatsappNumber: "+57 313 803 7661",
+
+  facebook: "https://www.facebook.com/share/p/19cULQeiML/",
+
+  email: "cfpagropecuario@hotmail.com",
+
+};
+
+---
+
+<footer
+
+  id="contactanos"
+
+  class="footer"
+
+  aria-labelledby="footer-title"
+
+>
+
+  <div class="footer-ambient" aria-hidden="true"></div>
+  <div class="footer-top-line" aria-hidden="true"></div>
+
+  <div class="footer-container">
+
+    <!-- Invitación principal -->
+
+    <div class="footer-hero">
+
+      <div class="footer-topline">
+
+        <span class="footer-eyebrow">
+
+          <span class="eyebrow-line"></span>
+
+          06 / HABLEMOS
+
+        </span>
+
+        <span class="footer-location">
+
+          AGUABONITA · SILVANIA
+
+        </span>
+
+      </div>
+
+      <h2 id="footer-title" class="footer-title">
+
+        EL FUTURO SE
+
+        <span>CULTIVA JUNTOS.</span>
+
+      </h2>
+
+      <div class="footer-hero-bottom">
+
+        <p class="footer-introduction">
+
+          Conectemos ideas, oportunidades y personas para
+
+          seguir fortaleciendo nuestro campo.
+
+        </p>
+
+        <a
+
+          href={contact.whatsapp}
+
+          target="_blank"
+
+          rel="noopener noreferrer"
+
+          class="footer-main-cta"
+
+          aria-label="Escríbenos por WhatsApp. Abrir en una pestaña nueva"
+
+        >
+
+          <span>ESCRÍBENOS POR WHATSAPP</span>
+
+          <svg
+
+            viewBox="0 0 24 24"
+
+            width="22"
+
+            height="22"
+
+            fill="none"
+
+            stroke="currentColor"
+
+            stroke-width="1.8"
+
+            stroke-linecap="round"
+
+            stroke-linejoin="round"
+
+            aria-hidden="true"
+
+          >
+
+            <path d="M7 17 17 7" />
+
+            <path d="M8 7h9v9" />
+
+          </svg>
+
+        </a>
+
+      </div>
+
+    </div>
+
+    <!-- Información institucional -->
+
+    <div class="footer-main">
+
+      <div class="footer-brand">
+
+        <div class="footer-logo" aria-label="CFP">
+
+          <span>C</span>
+
+          <span>F</span>
+
+          <span>P</span>
+
+          <span class="footer-logo-dot">.</span>
+
+        </div>
+
+        <h3>Asociación Campesinos Forjadores de Paz</h3>
+
+        <p>
+
+          Impulsando el desarrollo rural, la autonomía
+
+          agropecuaria y el bienestar de nuestras familias
+
+          campesinas en Silvania, Cundinamarca.
+
+        </p>
+
+        <span class="footer-brand-location">
+
+          AGUABONITA, SILVANIA · COLOMBIA
+
+        </span>
+
+      </div>
+
+      <nav
+
+        class="footer-navigation"
+
+        aria-label="Navegación del pie de página"
+
+      >
+
+        <h3>EXPLORA</h3>
+
+        <ul>
+
+          {navigation.map((item) => (
+
+            <li>
+
+              <a href={item.href}>
+
+                <span>{item.label}</span>
+
+                <span aria-hidden="true">↗</span>
+
+              </a>
+
+            </li>
+
+          ))}
+
+        </ul>
+
+      </nav>
+
+      <div class="footer-contact">
+
+        <h3>CONVERSEMOS</h3>
+
+        <div class="footer-contact-list">
+
+          <a
+
+            href={contact.whatsapp}
+
+            target="_blank"
+
+            rel="noopener noreferrer"
+
+            class="contact-item"
+
+            aria-label={`WhatsApp ${contact.whatsappNumber}. Abrir en una pestaña nueva`}
+
+          >
+
+            <span class="contact-icon" aria-hidden="true">
+
+              <svg
+
+                viewBox="0 0 24 24"
+
+                width="23"
+
+                height="23"
+
+                fill="currentColor"
+
+              >
+
+                <path d="M20.52 3.48A11.87 11.87 0 0 0 12.05 0C5.46 0 .09 5.36.08 11.95c0 2.1.55 4.16 1.6 5.97L0 24l6.24-1.64a11.9 11.9 0 0 0 5.8 1.48h.01c6.59 0 11.96-5.36 11.96-11.95a11.87 11.87 0 0 0-3.49-8.41ZM12.05 21.8a9.9 9.9 0 0 1-5.05-1.38l-.36-.21-3.7.97.99-3.61-.23-.37a9.9 9.9 0 0 1-1.52-5.25c0-5.48 4.46-9.94 9.95-9.94a9.87 9.87 0 0 1 7.03 2.91 9.87 9.87 0 0 1 2.91 7.03c0 5.49-4.46 9.95-9.95 9.95Zm5.46-7.45c-.3-.15-1.77-.87-2.04-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.49s1.07 2.89 1.22 3.09c.15.2 2.11 3.22 5.11 4.51.71.31 1.27.49 1.7.63.71.23 1.36.2 1.87.12.57-.09 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35Z"/>
+
+              </svg>
+
+            </span>
+
+            <span class="contact-details">
+
+              <span class="contact-label">WHATSAPP</span>
+
+              <span class="contact-value">
+
+                {contact.whatsappNumber}
+
+              </span>
+
+            </span>
+
+            <span class="contact-arrow" aria-hidden="true">↗</span>
+
+          </a>
+
+          <a
+
+            href={contact.facebook}
+
+            target="_blank"
+
+            rel="noopener noreferrer"
+
+            class="contact-item"
+
+            aria-label="Facebook de Campesinos Forjadores de Paz. Abrir en una pestaña nueva"
+
+          >
+
+            <span class="contact-icon" aria-hidden="true">
+
+              <svg
+
+                viewBox="0 0 24 24"
+
+                width="23"
+
+                height="23"
+
+                fill="currentColor"
+
+              >
+
+                <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/>
+
+              </svg>
+
+            </span>
+
+            <span class="contact-details">
+
+              <span class="contact-label">FACEBOOK</span>
+
+              <span class="contact-value">
+
+                Campesinos Forjadores de Paz
+
+              </span>
+
+            </span>
+
+            <span class="contact-arrow" aria-hidden="true">↗</span>
+
+          </a>
+
+          <a
+
+            href={`mailto:${contact.email}`}
+
+            class="contact-item"
+
+          >
+
+            <span class="contact-icon" aria-hidden="true">
+
+              <svg
+
+                viewBox="0 0 24 24"
+
+                width="23"
+
+                height="23"
+
+                fill="none"
+
+                stroke="currentColor"
+
+                stroke-width="1.7"
+
+                stroke-linecap="round"
+
+                stroke-linejoin="round"
+
+              >
+
+                <rect x="2" y="4" width="20" height="16" rx="2"/>
+
+                <path d="m3 6 9 7 9-7"/>
+
+              </svg>
+
+            </span>
+
+            <span class="contact-details">
+
+              <span class="contact-label">CORREO ELECTRÓNICO</span>
+
+              <span class="contact-value">
+
+                {contact.email}
+
+              </span>
+
+            </span>
+
+            <span class="contact-arrow" aria-hidden="true">↗</span>
+
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Derechos y retorno al inicio -->
+
+    <div class="footer-bottom">
+
+      <p>
+
+        © {currentYear} Asociación Campesinos Forjadores de Paz.
+
+        Todos los derechos reservados.
+
+      </p>
+
+      <span class="footer-bottom-location">
+
+        SILVANIA · CUNDINAMARCA
+
+      </span>
+
+      <a
+
+        href="#inicio"
+
+        class="back-to-top"
+
+        data-back-to-top
+
+      >
+
+        VOLVER ARRIBA
+
+        <span aria-hidden="true">↑</span>
+
+      </a>
+
+    </div>
+
+  </div>
+
+</footer>
+
+<style>
+
+  .footer {
+
+    position: relative;
+
+    width: 100%;
+
+    padding: clamp(90px, 10vw, 150px) 0 30px;
+
+    overflow: hidden;
+
+    background: #0d2419;
+
+    color: #ffffff;
+
+    scroll-margin-top: 90px;
+
+  }
+
+  .footer::before {
+
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+
+    left: 0;
+
+    width: 100%;
+
+    height: 1px;
+
+    background: linear-gradient(
+
+      90deg,
+
+      transparent,
+
+      rgba(183, 237, 100, 0.4),
+
+      transparent
+
+    );
+
+  }
+
+  .footer-container {
+
+    width: min(100% - 48px, 1320px);
+
+    margin-inline: auto;
+
+  }
+
+  /* Invitación principal */
+
+  .footer-hero {
+
+    padding-bottom: clamp(75px, 10vw, 140px);
+
+  }
+
+  .footer-topline {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 25px;
+
+    margin-bottom: 40px;
+
+  }
+
+  .footer-eyebrow {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    color: #b7ed64;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.18em;
+
+  }
+
+  .eyebrow-line {
+
+    width: 36px;
+
+    height: 1px;
+
+    background: currentColor;
+
+  }
+
+  .footer-location {
+
+    color: rgba(255, 255, 255, 0.45);
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+    letter-spacing: 0.14em;
+
+  }
+
+  .footer-title {
+
+    max-width: 1250px;
+
+    margin: 0 0 40px;
+
+    font-family: var(--font-display, Impact, sans-serif);
+
+    font-size: clamp(3.3rem, 9vw, 9rem);
+
+    font-weight: 400;
+
+    line-height: 0.95;
+
+    letter-spacing: -0.025em;
+
+    text-wrap: balance;
+
+  }
+
+  .footer-title span {
+
+    display: block;
+
+    color: #b7ed64;
+
+  }
+
+  .footer-hero-bottom {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: flex-end;
+
+    gap: 40px;
+
+  }
+
+  .footer-introduction {
+
+    max-width: 550px;
+
+    margin: 0;
+
+    color: rgba(255, 255, 255, 0.72);
+
+    font-size: clamp(1rem, 1.4vw, 1.2rem);
+
+    line-height: 1.7;
+
+  }
+
+  .footer-main-cta {
+
+    display: inline-flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 35px;
+
+    flex-shrink: 0;
+
+    min-height: 64px;
+
+    padding: 20px 28px;
+
+    border-radius: 100px;
+
+    background: #b7ed64;
+
+    color: #102719;
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+    letter-spacing: 0.07em;
+
+    text-decoration: none;
+
+    transition:
+
+      background 0.3s ease,
+
+      transform 0.3s ease;
+
+  }
+
+  .footer-main-cta:hover {
+
+    background: #d1ff8a;
+
+    transform: translateY(-4px);
+
+  }
+
+  .footer-main-cta svg {
+
+    transition: transform 0.3s ease;
+
+  }
+
+  .footer-main-cta:hover svg {
+
+    transform: translate(3px, -3px);
+
+  }
+
+  /* Columnas inferiores */
+
+  .footer-main {
+
+    display: grid;
+
+    grid-template-columns: 1.2fr 0.7fr 1.2fr;
+
+    gap: clamp(30px, 5vw, 90px);
+
+    padding: 60px 0 85px;
+
+    border-top: 1px solid rgba(255, 255, 255, 0.16);
+
+  }
+
+  .footer-logo {
+
+    display: inline-flex;
+
+    align-items: baseline;
+
+    gap: 2px;
+
+    margin-bottom: 25px;
+
+    font-family: var(--font-display, Impact, sans-serif);
+
+    font-size: 4.5rem;
+
+    line-height: 1;
+
+    letter-spacing: -0.06em;
+
+  }
+
+  .footer-logo span:nth-child(1) {
+
+    color: #ffffff;
+
+  }
+
+  .footer-logo span:nth-child(2) {
+
+    color: #b7ed64;
+
+  }
+
+  .footer-logo span:nth-child(3) {
+
+    color: #ffffff;
+
+  }
+
+  .footer-logo-dot {
+
+    color: #b7ed64;
+
+  }
+
+  .footer-brand h3 {
+
+    max-width: 330px;
+
+    margin: 0 0 18px;
+
+    font-size: 1.3rem;
+
+    font-weight: 700;
+
+    line-height: 1.4;
+
+  }
+
+  .footer-brand p {
+
+    max-width: 360px;
+
+    margin: 0 0 28px;
+
+    color: rgba(255, 255, 255, 0.6);
+
+    font-size: 14px;
+
+    line-height: 1.8;
+
+  }
+
+  .footer-brand-location {
+
+    color: #b7ed64;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.12em;
+
+  }
+
+  .footer-navigation h3,
+
+  .footer-contact h3 {
+
+    margin: 10px 0 32px;
+
+    color: #b7ed64;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.18em;
+
+  }
+
+  /* Navegación */
+
+  .footer-navigation ul {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 20px;
+
+    margin: 0;
+
+    padding: 0;
+
+    list-style: none;
+
+  }
+
+  .footer-navigation a {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    color: rgba(255, 255, 255, 0.8);
+
+    font-size: 15px;
+
+    font-weight: 600;
+
+    text-decoration: none;
+
+    transition:
+
+      color 0.25s ease,
+
+      transform 0.25s ease;
+
+  }
+
+  .footer-navigation a span:last-child {
+
+    color: #b7ed64;
+
+    font-size: 18px;
+
+    opacity: 0;
+
+    transform: translate(-5px, 5px);
+
+    transition:
+
+      opacity 0.25s ease,
+
+      transform 0.25s ease;
+
+  }
+
+  .footer-navigation a:hover {
+
+    color: #b7ed64;
+
+    transform: translateX(4px);
+
+  }
+
+  .footer-navigation a:hover span:last-child {
+
+    opacity: 1;
+
+    transform: translate(0, 0);
+
+  }
+
+  /* Contacto */
+
+  .footer-contact-list {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 12px;
+
+  }
+
+  .contact-item {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    min-width: 0;
+
+    padding: 17px;
+
+    border: 1px solid rgba(255, 255, 255, 0.13);
+
+    border-radius: 14px;
+
+    background: rgba(255, 255, 255, 0.035);
+
+    color: #ffffff;
+
+    text-decoration: none;
+
+    transition:
+
+      border-color 0.3s ease,
+
+      background 0.3s ease,
+
+      transform 0.3s ease;
+
+  }
+
+  .contact-item:hover {
+
+    border-color: rgba(183, 237, 100, 0.45);
+
+    background: rgba(183, 237, 100, 0.07);
+
+    transform: translateY(-3px);
+
+  }
+
+  .contact-icon {
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    flex: 0 0 46px;
+
+    width: 46px;
+
+    height: 46px;
+
+    border-radius: 12px;
+
+    background: rgba(183, 237, 100, 0.1);
+
+    color: #b7ed64;
+
+  }
+
+  .contact-details {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 5px;
+
+    flex: 1;
+
+    min-width: 0;
+
+  }
+
+  .contact-label {
+
+    color: rgba(255, 255, 255, 0.5);
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.12em;
+
+  }
+
+  .contact-value {
+
+    color: #ffffff;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    line-height: 1.5;
+
+    overflow-wrap: anywhere;
+
+  }
+
+  .contact-arrow {
+
+    align-self: flex-start;
+
+    color: #b7ed64;
+
+    font-size: 18px;
+
+  }
+
+  /* Barra inferior */
+
+  .footer-bottom {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 25px;
+
+    padding-top: 28px;
+
+    border-top: 1px solid rgba(255, 255, 255, 0.13);
+
+  }
+
+  .footer-bottom p,
+
+  .footer-bottom-location {
+
+    margin: 0;
+
+    color: rgba(255, 255, 255, 0.45);
+
+    font-size: 11px;
+
+    line-height: 1.7;
+
+  }
+
+  .footer-bottom-location {
+
+    font-weight: 700;
+
+    letter-spacing: 0.1em;
+
+  }
+
+  .back-to-top {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    flex-shrink: 0;
+
+    color: #b7ed64;
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    letter-spacing: 0.1em;
+
+    text-decoration: none;
+
+  }
+
+  .back-to-top span {
+
+    font-size: 20px;
+
+    transition: transform 0.3s ease;
+
+  }
+
+  .back-to-top:hover span {
+
+    transform: translateY(-5px);
+
+  }
+
+  /* Accesibilidad */
+
+  .footer a:focus-visible {
+
+    outline: 2px solid #b7ed64;
+
+    outline-offset: 4px;
+
+  }
+
+  /* Tabletas */
+
+  @media (max-width: 1050px) {
+
+    .footer-main {
+
+      grid-template-columns: 1fr 1fr;
+
+    }
+
+    .footer-brand {
+
+      grid-column: 1 / -1;
+
+    }
+
+    .footer-hero-bottom {
+
+      align-items: flex-start;
+
+      flex-direction: column;
+
+    }
+
+    .footer-bottom-location {
+
+      display: none;
+
+    }
+
+  }
+
+  /* Móviles */
+
+  @media (max-width: 650px) {
+
+    .footer {
+
+      padding: 90px 0 25px;
+
+    }
+
+    .footer-container {
+
+      width: min(100% - 32px, 1320px);
+
+    }
+
+    .footer-location {
+
+      display: none;
+
+    }
+
+    .footer-title {
+
+      font-size: clamp(3.1rem, 12vw, 5.5rem);
+
+    }
+
+    .footer-hero {
+
+      padding-bottom: 65px;
+
+    }
+
+    .footer-main-cta {
+
+      width: 100%;
+
+      gap: 15px;
+
+      justify-content: space-between;
+
+      padding: 20px 23px;
+
+    }
+
+    .footer-main {
+
+      grid-template-columns: 1fr;
+
+      gap: 50px;
+
+      padding: 50px 0 65px;
+
+    }
+
+    .footer-brand {
+
+      grid-column: auto;
+
+    }
+
+    .footer-navigation h3,
+
+    .footer-contact h3 {
+
+      margin-bottom: 25px;
+
+    }
+
+    .footer-bottom {
+
+      flex-direction: column;
+
+      align-items: flex-start;
+
+      gap: 20px;
+
+    }
+
+    .footer-logo {
+
+      font-size: 4rem;
+
+    }
+
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+
+    .footer a,
+
+    .footer a svg,
+
+    .footer a span {
+
+      transition: none;
+
+    }
+
+  }
+
+
+  /* Efectos ambientales independientes del contenido */
+  .footer {
+    isolation: isolate;
+  }
+
+  .footer-ambient {
+    position: absolute;
+    z-index: -1;
+    top: -12%;
+    right: -20%;
+    width: min(95vw, 1050px);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(183, 237, 100, 0.13), rgba(46, 125, 50, 0.05) 45%, transparent 72%);
+    filter: blur(45px);
+    pointer-events: none;
+  }
+
+  .footer-top-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #b7ed64, transparent);
+    transform: scaleX(0);
+    transform-origin: center;
+    pointer-events: none;
+  }
+
+  /* El brillo acompaña al CTA sin alterar su enlace */
+  .footer-main-cta {
+    position: relative;
+    will-change: transform;
+  }
+
+  .footer-navigation a,
+  .contact-item,
+  .back-to-top {
+    will-change: transform;
+  }
+
+  @media (hover: none), (pointer: coarse) {
+    .footer-main-cta,
+    .footer-navigation a,
+    .contact-item,
+    .back-to-top {
+      will-change: auto;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .footer-top-line {
+      transform: scaleX(1);
+    }
+    .footer-ambient {
+      filter: blur(45px);
+    }
+    .footer-main-cta,
+    .footer-navigation a,
+    .contact-item,
+    .back-to-top {
+      will-change: auto;
+    }
+  }
+
+</style>
+
+<script>
+  import { initFooter, destroyFooter } from "../js/components/footer.js";
+  import {
+    initFooterEffects,
+    destroyFooterEffects,
+  } from "../js/components/footerEffects.js";
+
+  function initFooterSection() {
+    initFooter();
+    initFooterEffects();
+  }
+
+  function destroyFooterSection() {
+    destroyFooterEffects();
+    destroyFooter();
+  }
+
+  initFooterSection();
+  document.addEventListener("astro:page-load", initFooterSection);
+  document.addEventListener("astro:before-swap", destroyFooterSection);
+</script>
+

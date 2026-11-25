@@ -1,0 +1,111 @@
+---
+import { getImage } from "astro:assets";
+
+import casaDesktop from "../assets/Entrada/casa.png";
+import casaCampesinosDesktop from "../assets/Entrada/casa-campesinos.png";
+import casaMovil from "../assets/Entrada/casa-movil.png";
+import casaCampesinosMovil from "../assets/Entrada/casa-campesinos-movil.png";
+
+// Procesa las imágenes para escritorio y dispositivos móviles.
+const beforeDesktop = await getImage({ src: casaDesktop });
+const beforeMobile = await getImage({ src: casaMovil });
+const afterDesktop = await getImage({ src: casaCampesinosDesktop });
+const afterMobile = await getImage({ src: casaCampesinosMovil });
+---
+
+<section class="comparisonSection" id="inicio" aria-label="Campesinos Forjadores de Paz">
+  <div class="comparisonImage beforeImage">
+    <picture>
+      <source
+        media="(max-width: 768px)"
+        srcset={beforeMobile.src}
+      />
+      <img
+        src={beforeDesktop.src}
+        alt="Sede de la Asociación Campesinos Forjadores de Paz"
+        class="comp-img"
+        loading="eager"
+        fetchpriority="high"
+      />
+    </picture>
+  </div>
+
+  <div class="comparisonImage afterImage">
+    <picture>
+      <source
+        media="(max-width: 768px)"
+        srcset={afterMobile.src}
+      />
+      <img
+        src={afterDesktop.src}
+        alt="Campesinos Forjadores de Paz frente a su sede"
+        class="comp-img"
+        loading="eager"
+      />
+    </picture>
+  </div>
+</section>
+
+<style>
+  .comparisonSection {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
+    overflow: hidden;
+    isolation: isolate;
+    background-color: #173d27;
+  }
+
+  .comparisonImage {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .beforeImage {
+    z-index: 1;
+  }
+
+  .afterImage {
+    z-index: 2;
+    overflow: hidden;
+    transform: translate3d(100%, 0, 0);
+  }
+
+  .afterImage .comp-img {
+    transform: translate3d(-100%, 0, 0);
+  }
+
+  .comparisonImage picture {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .comp-img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  @media (max-width: 768px) {
+    .comp-img {
+      object-position: center center;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .afterImage,
+    .afterImage .comp-img {
+      transform: none;
+    }
+
+    .afterImage {
+      display: none;
+    }
+  }
+</style>

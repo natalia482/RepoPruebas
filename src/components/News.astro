@@ -1,0 +1,705 @@
+---
+import { getImage } from "astro:assets";
+
+import asociadosImg from "../assets/news/Asociados.jpg";
+import arandanosFestImg from "../assets/news/Arandanosfest.jpg";
+import capacitacionMujerImg from "../assets/news/capacitacionmujer.jpg";
+import capacitacionSenaImg from "../assets/news/capacitacioncampesena.jpg";
+import campesenaFeriaImg from "../assets/news/CAMPESENA.jpg";
+
+const newsItemsRaw = [
+  {
+    id: 1,
+    title: "Nuevas asociaciones aliadas en la región del Sumapaz",
+    description:
+      "Con el objetivo de mejorar la calidad de vida de los campesinos y brindarles ayudas para su proyecto productivo se realizó la reunión entre varias asociaciones de la región.",
+    category: "Asociados",
+    image: asociadosImg,
+    link: "https://www.facebook.com/share/p/19cULQeiML/",
+  },
+  {
+    id: 2,
+    title: "Presencia en rueda de negocios Arándanos Fest",
+    description:
+      "Nuestra asociación CFP presente en rueda de negocios arándanos fest del municipio de Silvania y la región.",
+    category: "Eventos",
+    image: arandanosFestImg,
+    link: "https://www.facebook.com/share/p/1J4e8yNNaE/",
+  },
+  {
+    id: 3,
+    title: "Capacitación de la Secretaría de Mujer y Género",
+    description:
+      "Talleres y formación enfocados en fortalecer el liderazgo de nuestras campesinas forjadoras de paz.",
+    category: "Capacitaciones",
+    image: capacitacionMujerImg,
+    link: "https://www.facebook.com/share/v/1e7Nci4pX2/",
+  },
+  {
+    id: 4,
+    title: "Capacitación campeSENA",
+    description:
+      "Acompañamiento de las entidades para mejorar las habilidades de nuestras campesinas forjadoras de paz.",
+    category: "Capacitaciones",
+    image: capacitacionSenaImg,
+    link: "https://www.facebook.com/share/p/1bnkx7fNFx/",
+  },
+  {
+    id: 5,
+    title: "Feria regional Cundinamarca - CAMPESENA",
+    description:
+      "Espacio para exhibir y apoyar los emprendimientos y productos de aprendices y comunidades rurales del departamento.",
+    category: "Eventos",
+    image: campesenaFeriaImg,
+    link: "https://www.facebook.com/share/p/1Kqvb2bg69/",
+  },
+];
+
+// Optimiza las fotografías antes de renderizar las noticias.
+const newsItems = await Promise.all(
+  newsItemsRaw.map(async (item, index) => ({
+    ...item,
+    number: String(index + 1).padStart(2, "0"),
+    optimizedImg: await getImage({
+      src: item.image,
+      width: index === 0 ? 1200 : 800,
+      format: "webp",
+    }),
+  }))
+);
+
+const featuredNews = newsItems[0];
+const secondaryNews = newsItems.slice(1);
+---
+
+<section
+  id="noticias"
+  class="news-section"
+  aria-labelledby="news-heading"
+>
+  <div class="news-background" aria-hidden="true"></div>
+
+  <div class="container news-container">
+    <!-- Encabezado principal -->
+    <header class="news-header">
+      <div class="news-topline">
+        <span class="news-eyebrow">
+          <span class="eyebrow-line"></span>
+          04 / ACTUALIDAD CFP
+        </span>
+
+        <span class="news-location">
+          NUESTRA HISTORIA CONTINÚA
+        </span>
+      </div>
+
+      <h2 id="news-heading" class="news-heading">
+        VOCES DEL
+        <span>CAMPO.</span>
+      </h2>
+
+      <div class="news-introduction">
+        <p>
+          Encuentros, aprendizajes y experiencias que
+          fortalecen nuestra comunidad campesina.
+        </p>
+      </div>
+    </header>
+
+    <!-- Galería de noticias -->
+    <div class="news-content">
+      <!-- Noticia destacada -->
+      <a
+        href={featuredNews.link}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="news-card news-card-featured"
+        aria-label={`${featuredNews.title}. Abrir publicación en Facebook en una pestaña nueva`}
+      >
+        <div class="news-card-inner">
+          <div class="news-image">
+            <img
+              src={featuredNews.optimizedImg.src}
+              width={featuredNews.optimizedImg.attributes.width}
+              height={featuredNews.optimizedImg.attributes.height}
+              alt="Encuentro de asociaciones de la región del Sumapaz"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+
+          <div
+            class="news-image-shade"
+            aria-hidden="true"
+          ></div>
+
+          <div class="news-card-top">
+            <span class="news-category">
+              {featuredNews.category}
+            </span>
+          </div>
+
+          <div class="news-card-bottom">
+            <div class="news-card-information">
+              <span class="news-card-label">
+                HISTORIA DESTACADA
+              </span>
+
+              <h3>{featuredNews.title}</h3>
+
+              <p>{featuredNews.description}</p>
+
+              <span class="news-read-more">
+                Ver publicación en Facebook
+                <span aria-hidden="true">↗</span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <!-- Noticias secundarias -->
+      <div class="news-secondary-grid">
+        {secondaryNews.map((item) => (
+          <a
+            href={item.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="news-card news-card-secondary"
+            aria-label={`${item.title}. Abrir publicación en Facebook en una pestaña nueva`}
+          >
+            <div class="news-card-inner">
+              <div class="news-image">
+                <img
+                  src={item.optimizedImg.src}
+                  width={item.optimizedImg.attributes.width}
+                  height={item.optimizedImg.attributes.height}
+                  alt={`Fotografía de ${item.title}`}
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+
+              <div
+                class="news-image-shade"
+                aria-hidden="true"
+              ></div>
+
+              <div class="news-card-top">
+                <span class="news-category">
+                  {item.category}
+                </span>
+              </div>
+
+              <div class="news-card-bottom">
+                <div class="news-card-information">
+                  <span class="news-card-label">
+                    ACTUALIDAD CFP
+                  </span>
+
+                  <h3>{item.title}</h3>
+
+                  <p>{item.description}</p>
+
+                  <span class="news-read-more">
+                    Ver publicación
+                    <span aria-hidden="true">↗</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+
+    <footer class="news-footer">
+      <span>CAMPESINOS FORJADORES DE PAZ</span>
+      <span>HISTORIAS QUE NOS CONECTAN</span>
+    </footer>
+  </div>
+</section>
+
+<style>
+  /* Estructura principal */
+  .news-section {
+    position: relative;
+    isolation: isolate;
+    width: 100%;
+    padding: clamp(90px, 10vw, 150px) 0 45px;
+    overflow: hidden;
+    background: #0d2419;
+    color: #ffffff;
+    scroll-margin-top: 90px;
+  }
+
+  .news-background {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background:
+      radial-gradient(
+        ellipse at 10% 5%,
+        rgba(183, 237, 100, 0.09),
+        transparent 42%
+      ),
+      linear-gradient(
+        180deg,
+        #0d2419 0%,
+        #173d27 50%,
+        #0d2419 100%
+      );
+  }
+
+  .news-container {
+    width: min(100% - 48px, 1320px);
+    margin-inline: auto;
+  }
+
+  /* Encabezado */
+  .news-header {
+    margin-bottom: clamp(50px, 7vw, 85px);
+  }
+
+  .news-topline,
+  .news-introduction {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+  }
+
+  .news-topline {
+    margin-bottom: 35px;
+  }
+
+  .news-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    color: #b7ed64;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+  }
+
+  .eyebrow-line {
+    width: 36px;
+    height: 1px;
+    background: currentColor;
+  }
+
+  .news-location {
+    color: rgba(255, 255, 255, 0.45);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+  }
+
+  .news-heading {
+    max-width: 1150px;
+    margin: 0 0 30px;
+    font-family: var(--font-display, Impact, sans-serif);
+    font-size: clamp(4rem, 11vw, 11rem);
+    font-weight: 400;
+    line-height: 0.9;
+    letter-spacing: -0.025em;
+  }
+
+  .news-heading span {
+    display: block;
+    color: #b7ed64;
+  }
+
+  .news-introduction p {
+    max-width: 580px;
+    margin: 0;
+    color: rgba(255, 255, 255, 0.72);
+    font-size: clamp(1rem, 1.4vw, 1.2rem);
+    line-height: 1.7;
+  }
+
+  .news-introduction > span {
+    flex-shrink: 0;
+    color: #b7ed64;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+  }
+
+  /* Distribución */
+  .news-content {
+    display: grid;
+    gap: 20px;
+  }
+
+  .news-secondary-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+  }
+
+  /* Tarjetas y profundidad */
+  .news-card {
+    position: relative;
+    display: block;
+    min-width: 0;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 18px;
+    background: #173d27;
+    color: #ffffff;
+    text-decoration: none;
+    isolation: isolate;
+    perspective: 1200px;
+    --news-pointer-x: 50%;
+    --news-pointer-y: 50%;
+  }
+
+  .news-card-featured {
+    min-height: 550px;
+  }
+
+  .news-card-secondary {
+    min-height: 470px;
+  }
+
+  .news-card-inner {
+    position: relative;
+    width: 100%;
+    min-height: inherit;
+    height: 100%;
+    transform-style: preserve-3d;
+    border-radius: inherit;
+  }
+
+  /* Iluminación interactiva */
+  .news-card-inner::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    border-radius: inherit;
+    background: radial-gradient(
+      circle at
+        var(--news-pointer-x)
+        var(--news-pointer-y),
+      rgba(183, 237, 100, 0.15),
+      transparent 45%
+    );
+    opacity: 0;
+    transition: opacity 0.35s ease;
+  }
+
+  /* Fotografías */
+  .news-image,
+  .news-image-shade {
+    position: absolute;
+    inset: 0;
+  }
+
+  .news-image {
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .news-image img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    scale: 1.12;
+    will-change: transform;
+    transition: filter 0.5s ease;
+  }
+
+  .news-image-shade {
+    z-index: 1;
+    pointer-events: none;
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.4) 0%,
+      rgba(0, 0, 0, 0.08) 35%,
+      rgba(0, 0, 0, 0.88) 100%
+    );
+  }
+
+  /* Información sobre las fotografías */
+  .news-card-top,
+  .news-card-bottom {
+    position: absolute;
+    left: 0;
+    z-index: 2;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    padding: clamp(22px, 3vw, 40px);
+  }
+
+  .news-card-top {
+    top: 0;
+    align-items: flex-start;
+  }
+
+  .news-card-bottom {
+    bottom: 0;
+    align-items: flex-end;
+  }
+
+  .news-number {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+  }
+
+  .news-category {
+    padding: 8px 13px;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 100px;
+    background: rgba(10, 30, 20, 0.35);
+    color: #ffffff;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    backdrop-filter: blur(8px);
+  }
+
+  .news-card-information {
+    max-width: 900px;
+  }
+
+  .news-card-label {
+    display: block;
+    margin-bottom: 12px;
+    color: #b7ed64;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+  }
+
+  .news-card h3 {
+    margin: 0 0 15px;
+    font-family: var(--font-display, Impact, sans-serif);
+    font-weight: 400;
+    line-height: 1.05;
+    text-wrap: balance;
+  }
+
+  .news-card-featured h3 {
+    max-width: 850px;
+    font-size: clamp(2.4rem, 5vw, 5rem);
+  }
+
+  .news-card-secondary h3 {
+    font-size: clamp(1.8rem, 2.8vw, 3rem);
+  }
+
+  .news-card-information p {
+    max-width: 680px;
+    margin: 0 0 20px;
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  .news-card-secondary .news-card-information p {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+  }
+
+  /* Indicador de navegación */
+  .news-read-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    color: #b7ed64;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+  }
+
+  .news-read-more span {
+    font-size: 20px;
+    transition: transform 0.35s ease;
+  }
+
+  /* Interacciones */
+  .news-card:focus-visible {
+    outline: 3px solid #b7ed64;
+    outline-offset: 4px;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .news-card:hover .news-card-inner::after {
+      opacity: 1;
+    }
+
+    .news-card:hover .news-image img {
+      filter: saturate(1.12);
+    }
+
+    .news-card:hover .news-read-more span {
+      transform: translate(5px, -5px) rotate(8deg);
+    }
+  }
+
+  /* Pie */
+  .news-footer {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin-top: 65px;
+    padding-top: 25px;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+  }
+
+  /* Tabletas */
+  @media (max-width: 900px) {
+    .news-card-featured {
+      min-height: 500px;
+    }
+
+    .news-card-secondary {
+      min-height: 440px;
+    }
+  }
+
+  /* Móviles */
+  @media (max-width: 650px) {
+    .news-section {
+      padding: 90px 0 30px;
+    }
+
+    .news-container {
+      width: min(100% - 32px, 1320px);
+    }
+
+    .news-location {
+      display: none;
+    }
+
+    .news-heading {
+      font-size: clamp(3.8rem, 15vw, 6rem);
+    }
+
+    .news-introduction {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 18px;
+    }
+
+    .news-secondary-grid {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    .news-card-featured {
+      min-height: 520px;
+    }
+
+    .news-card-secondary {
+      min-height: 450px;
+    }
+
+    .news-card-top,
+    .news-card-bottom {
+      padding: 22px;
+    }
+
+    .news-card-featured h3 {
+      font-size: clamp(2rem, 8vw, 3.2rem);
+    }
+
+    .news-card-secondary h3 {
+      font-size: clamp(1.9rem, 7vw, 2.7rem);
+    }
+
+    .news-card-information p {
+      font-size: 13px;
+    }
+
+    .news-footer {
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 45px;
+    }
+  }
+
+  /* Accesibilidad y movimiento reducido */
+  @media (hover: none), (pointer: coarse) {
+    .news-card-inner {
+      transform: none !important;
+    }
+
+    .news-image img {
+      will-change: auto;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .news-card-inner {
+      transform: none !important;
+    }
+
+    .news-card-inner::after {
+      display: none;
+    }
+
+    .news-image img {
+      scale: 1;
+      will-change: auto;
+      transition: none;
+    }
+
+    .news-read-more span {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  import {
+    initNews,
+    destroyNews,
+  } from "../js/components/news.js";
+
+  import {
+    initNewsEffects,
+    destroyNewsEffects,
+  } from "../js/components/newsEffects.js";
+
+  // Inicializa las animaciones de entrada y los efectos.
+  function initNewsSection() {
+    initNews();
+    initNewsEffects();
+  }
+
+  // Limpia los recursos antes de cambiar de página.
+  function destroyNewsSection() {
+    destroyNewsEffects();
+    destroyNews();
+  }
+
+  initNewsSection();
+
+  document.addEventListener(
+    "astro:page-load",
+    initNewsSection
+  );
+
+  document.addEventListener(
+    "astro:before-swap",
+    destroyNewsSection
+  );
+</script>

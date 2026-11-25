@@ -1,0 +1,62 @@
+/*	Colores, tipografías, tamaños y espacios */
+
+:root {
+  /* Colores principales */
+  --color-primary: #173d27;
+  --color-primary-dark: #0d2419;
+  --color-primary-light: #2e7d32;
+
+  --color-accent: #b7ed64;
+  --color-accent-hover: #d0ff88;
+
+  --color-earth: #a56c42;
+  --color-cream: #f7f8f3;
+
+  /* Colores de texto */
+  --color-text: #182a20;
+  --color-text-light: #ffffff;
+  --color-text-muted: #68766c;
+
+  /* Fondos */
+  --bg-main: #f7f8f3;
+  --bg-dark: #102b1e;
+  --bg-card: #ffffff;
+
+  /* Tipografía */
+  --font-body: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-display: "Bebas Neue", Impact, sans-serif;
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.25rem;
+  --text-xl: 1.5rem;
+
+  /* Espaciado */
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2rem;
+  --space-5: 3rem;
+  --space-6: 5rem;
+
+  /* Bordes */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 24px;
+  --radius-pill: 999px;
+
+  /* Transiciones */
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s ease;
+  --transition-slow: 0.5s ease;
+
+  /* Capas */
+  --z-content: 1;
+  --z-overlay: 100;
+  --z-header: 1000;
+
+  /* Contenedores */
+  --container-width: 1250px;
+  --container-padding: 24px;
+}
