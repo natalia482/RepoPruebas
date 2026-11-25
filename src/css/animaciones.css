@@ -63,61 +63,163 @@
 }
 
 /* Construcción progresiva entre Acerca de y Proyectos. */
-.cfp-build-outgoing,
-.cfp-build-incoming {
+
+/* Capas de transición entre Acerca de y Proyectos */
+.cfp-transition-outgoing,
+.cfp-transition-incoming {
   position: absolute;
   left: 0;
   right: 0;
-  height: clamp(170px, 25vw, 350px);
+  height: clamp(200px, 30vw, 420px);
   pointer-events: none;
   overflow: hidden;
 }
 
-.cfp-build-outgoing {
+/* Iluminación que aparece al finalizar Acerca de */
+.cfp-transition-outgoing {
   bottom: 0;
   z-index: 1;
-  background: radial-gradient(
-    ellipse 85% 85% at 50% 100%,
-    rgba(183, 237, 100, 0.22),
-    transparent 78%
-  );
+  background: radial-gradient(ellipse 85% 75% at 50% 100%,
+      rgba(183, 237, 100, 0.22),
+      transparent 75%);
 }
 
-.cfp-build-incoming {
+/* Efectos internos de la sección Proyectos */
+.cfp-transition-incoming {
   top: 0;
   z-index: 0;
 }
 
-.cfp-build-light,
-.cfp-build-grid {
+.cfp-transition-glow,
+.cfp-transition-grid {
   position: absolute;
   inset: 0;
 }
 
-.cfp-build-light {
+/* Luz ambiental */
+.cfp-transition-glow {
+  background: radial-gradient(ellipse 90% 75% at 50% 0%,
+      rgba(183, 237, 100, 0.27),
+      rgba(35, 102, 55, 0.12) 45%,
+      transparent 80%);
+  filter: blur(18px);
+}
+
+/* Cuadrícula que aparece progresivamente */
+.cfp-transition-grid {
+  background-image:
+    linear-gradient(rgba(183, 237, 100, 0.08) 1px,
+      transparent 1px),
+    linear-gradient(90deg,
+      rgba(183, 237, 100, 0.08) 1px,
+      transparent 1px);
+
+  background-size: 65px 65px;
+
+  mask-image: linear-gradient(to bottom,
+      black,
+      transparent 95%);
+}
+
+/* Línea que conecta las secciones */
+.cfp-transition-line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+
+  background: linear-gradient(90deg,
+      transparent,
+      #b7ed64 25%,
+      #e2ffb4 50%,
+      #b7ed64 75%,
+      transparent);
+
+  box-shadow:
+    0 0 15px rgba(183, 237, 100, 0.6),
+    0 0 35px rgba(183, 237, 100, 0.25);
+}
+
+/* Mantiene el contenido por encima de las capas */
+.projects-container {
+  position: relative;
+  z-index: 2;
+}
+
+
+/* Transición de Proyectos hacia la comunidad */
+.cfp-community-outgoing,
+.cfp-community-incoming {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: clamp(200px, 30vw, 420px);
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* Resplandor al finalizar los proyectos */
+.cfp-community-outgoing {
+  bottom: 0;
+  z-index: 1;
+
   background: radial-gradient(
-    ellipse 85% 75% at 50% 0%,
+    ellipse 85% 75% at 50% 100%,
+    rgba(183, 237, 100, 0.2),
+    transparent 78%
+  );
+}
+
+/* Capas de construcción de la comunidad */
+.cfp-community-incoming {
+  top: 0;
+  z-index: 0;
+}
+
+.cfp-community-light,
+.cfp-community-grid {
+  position: absolute;
+  inset: 0;
+}
+
+.cfp-community-light {
+  background: radial-gradient(
+    ellipse 90% 80% at 50% 0%,
     rgba(183, 237, 100, 0.24),
-    rgba(35, 102, 55, 0.1) 48%,
+    rgba(35, 102, 55, 0.1) 50%,
     transparent 80%
   );
 }
 
-.cfp-build-grid {
-  opacity: 0;
+.cfp-community-grid {
   background-image:
-    linear-gradient(rgba(183, 237, 100, 0.08) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(183, 237, 100, 0.08) 1px, transparent 1px);
+    linear-gradient(
+      rgba(183, 237, 100, 0.07) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(183, 237, 100, 0.07) 1px,
+      transparent 1px
+    );
+
   background-size: 65px 65px;
-  mask-image: linear-gradient(to bottom, black, transparent 95%);
+
+  mask-image: linear-gradient(
+    to bottom,
+    black,
+    transparent 95%
+  );
 }
 
-.cfp-build-edge {
+.cfp-community-line {
   position: absolute;
   top: 0;
   left: 0;
-  right: 0;
+  width: 100%;
   height: 2px;
+
   background: linear-gradient(
     90deg,
     transparent,
@@ -126,23 +228,55 @@
     #b7ed64 75%,
     transparent
   );
-  box-shadow: 0 0 16px rgba(183, 237, 100, 0.6);
+
+  box-shadow: 0 0 18px rgba(183, 237, 100, 0.55);
+}
+
+/* Mantiene los textos y controles por encima de la luz */
+.associates-container {
+  position: relative;
+  z-index: 2;
+}
+
+
+
+/* Adaptación para pantallas pequeñas */
+@media (max-width: 650px) {
+
+  .cfp-transition-outgoing,
+  .cfp-transition-incoming {
+    height: 190px;
+  }
+
+  .cfp-transition-grid {
+    background-size: 40px 40px;
+  }
+
+  
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .reveal, .reveal-left, .reveal-right {
+
+  .reveal,
+  .reveal-left,
+  .reveal-right {
     opacity: 1;
     transform: none;
   }
 
-  .hover-lift, .image-zoom img {
+  .hover-lift,
+  .image-zoom img {
     transition: none;
   }
 
-  .hover-lift:hover, .image-zoom:hover img {
+  .hover-lift:hover,
+  .image-zoom:hover img {
     transform: none;
   }
 
-  .scroll-progress { box-shadow: none; }
-  .cfp-build-outgoing, .cfp-build-incoming { display: none; }
+  .cfp-transition-outgoing,
+  .cfp-transition-incoming {
+    display: none;
+  }
+
 }

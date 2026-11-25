@@ -218,7 +218,6 @@ export function initAssociates() {
       if (reduceMotion) return;
 
       const elements = [
-        section.querySelector(".associates-header"),
         section.querySelector(".associates-gallery"),
       ].filter(Boolean);
 

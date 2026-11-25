@@ -249,22 +249,6 @@ export function initProjectsVision() {
         })
       );
 
-      if (header) {
-        timeline.fromTo(
-          header,
-          {
-            autoAlpha: 0,
-            y: 45,
-          },
-          {
-            autoAlpha: 1,
-            y: 0,
-            duration: 0.85,
-            clearProps: "all",
-          }
-        );
-      }
-
       if (navigation) {
         timeline.fromTo(
           navigation,

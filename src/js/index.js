@@ -12,6 +12,11 @@ import {
   destroySectionTransitions,
 } from "../js/global/sectionTransition.js";
 
+import {
+  initCommunityTransition,
+  destroyCommunityTransition,
+} from "./global/communityTransition.js";
+
 let cleanup = null;
 
 // Inicializa las funcionalidades generales de la página.
@@ -24,6 +29,7 @@ function initPage() {
 
   // Inicializa la pagina
   initSectionTransitions();
+  initCommunityTransition();
 
   const header = document.querySelector(".header");
   const navbar = document.getElementById("navbar");
@@ -423,6 +429,7 @@ function initPage() {
 
     destroyScrollProgress();
     destroySectionTransitions();
+    destroyCommunityTransition();
 
     cleanup = null;
   };
