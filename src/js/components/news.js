@@ -12,7 +12,7 @@ export function destroyNews() {
   currentSection = null;
 }
 
-// Inicializa las animaciones de entrada de Noticias.
+// Inicializa las animaciones de las noticias.
 export function initNews() {
   const section = document.getElementById("noticias");
 
@@ -21,7 +21,6 @@ export function initNews() {
 
   destroyNews();
 
-  const header = section.querySelector(".news-header");
   const featured = section.querySelector(
     ".news-card-featured"
   );
@@ -44,13 +43,13 @@ export function initNews() {
   const animations = new Set();
   const observers = [];
 
-  // Registra cada animación para poder eliminarla.
+  // Guarda las animaciones para limpiarlas después.
   function track(animation) {
     animations.add(animation);
     return animation;
   }
 
-  // Ejecuta una animación cuando el elemento entra en pantalla.
+  // Ejecuta una animación una sola vez al entrar en pantalla.
   function observeOnce(
     element,
     callback,
@@ -74,33 +73,7 @@ export function initNews() {
     observers.push(observer);
   }
 
-  // Aparición del encabezado.
-  observeOnce(
-    section,
-    () => {
-      if (!header) return;
-
-      track(
-        gsap.fromTo(
-          header,
-          {
-            autoAlpha: 0,
-            y: 45,
-          },
-          {
-            autoAlpha: 1,
-            y: 0,
-            duration: 0.9,
-            ease: "power3.out",
-            clearProps: "all",
-          }
-        )
-      );
-    },
-    0.1
-  );
-
-  // Entrada de la noticia destacada.
+  // La noticia destacada entra de forma independiente.
   observeOnce(
     featured,
     () => {
@@ -124,7 +97,7 @@ export function initNews() {
     0.1
   );
 
-  // Entrada independiente de las noticias secundarias.
+  // Las noticias secundarias aparecen al entrar en pantalla.
   secondaryCards.forEach((card) => {
     observeOnce(
       card,
@@ -150,7 +123,7 @@ export function initNews() {
     );
   });
 
-  // Limpia los recursos cuando Astro abandona la página.
+  // Limpia los recursos antes de cambiar de página.
   cleanupNews = () => {
     observers.forEach((observer) => {
       observer.disconnect();
@@ -164,7 +137,6 @@ export function initNews() {
 
     gsap.set(
       [
-        header,
         featured,
         ...secondaryCards,
       ].filter(Boolean),

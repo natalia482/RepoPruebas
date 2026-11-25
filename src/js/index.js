@@ -5,42 +5,64 @@ import { scrollToSection } from "./utils/scroll.js";
 import {
   initScrollProgress,
   destroyScrollProgress,
-} from "../js/global/scrollProgress.js";
+} from "./global/scrollProgress.js";
 
 import {
   initSectionTransitions,
   destroySectionTransitions,
-} from "../js/global/sectionTransition.js";
+} from "./global/sectionTransition.js";
 
 import {
   initCommunityTransition,
   destroyCommunityTransition,
 } from "./global/communityTransition.js";
 
+import {
+  initNewsTransition,
+  destroyNewsTransition,
+} from "./global/newsTransition.js";
+
+import {
+  initFooterTransition,
+  destroyFooterTransition,
+} from "./global/footerTransition.js";
+
 let cleanup = null;
 
-// Inicializa las funcionalidades generales de la página.
+// Libera las transiciones globales de la página.
+function destroyGlobalTransitions() {
+  destroyFooterTransition();
+  destroyNewsTransition();
+  destroyCommunityTransition();
+  destroySectionTransitions();
+  destroyScrollProgress();
+}
+
+// Inicializa las funcionalidades generales.
 function initPage() {
   cleanup?.();
   cleanup = null;
 
-  // El indicador de progreso no depende del Header.
+  // Estas animaciones no dependen del Header.
   initScrollProgress();
-
-  // Inicializa la pagina
   initSectionTransitions();
   initCommunityTransition();
+  initNewsTransition();
+  initFooterTransition();
 
   const header = document.querySelector(".header");
   const navbar = document.getElementById("navbar");
   const navMenu = document.getElementById("navMenu");
   const menuToggle = document.getElementById("menuToggle");
 
+  // Garantiza la limpieza incluso si no existe el menú.
   if (!header || !navbar || !navMenu || !menuToggle) {
     cleanup = () => {
-      destroyScrollProgress();
+      destroyGlobalTransitions();
+      cleanup = null;
     };
 
+    ScrollTrigger.refresh();
     return;
   }
 
@@ -50,6 +72,8 @@ function initPage() {
   const animations = [];
   const triggers = [];
 
+  let scrollToTopAnimation = null;
+
   const comparison = document.querySelector(
     ".comparisonSection"
   );
@@ -58,16 +82,7 @@ function initPage() {
     "(prefers-reduced-motion: reduce)"
   ).matches;
 
-  // Controla la visibilidad del Header.
-  function showHeader() {
-    header.classList.add("visible");
-  }
-
-  function hideHeader() {
-    header.classList.remove("visible");
-    closeMenu();
-  }
-
+  // Cierra el menú móvil.
   function closeMenu() {
     navMenu.classList.remove("open");
     menuToggle.classList.remove("is-open");
@@ -83,6 +98,7 @@ function initPage() {
     );
   }
 
+  // Abre el menú móvil.
   function openMenu() {
     navMenu.classList.add("open");
     menuToggle.classList.add("is-open");
@@ -98,6 +114,18 @@ function initPage() {
     );
   }
 
+  // Muestra el Header.
+  function showHeader() {
+    header.classList.add("visible");
+  }
+
+  // Oculta el Header.
+  function hideHeader() {
+    header.classList.remove("visible");
+    closeMenu();
+  }
+
+  // Sincroniza la visibilidad inicial del Header.
   function updateHeader() {
     if (!comparison || reduceMotion) {
       showHeader();
@@ -111,7 +139,7 @@ function initPage() {
     }
   }
 
-  // Menú de navegación móvil.
+  // Control del menú móvil.
   menuToggle.addEventListener(
     "click",
     () => {
@@ -124,6 +152,7 @@ function initPage() {
     { signal }
   );
 
+  // Cierra el menú cuando se hace clic fuera.
   document.addEventListener(
     "click",
     (event) => {
@@ -137,6 +166,7 @@ function initPage() {
     { signal }
   );
 
+  // Permite cerrar el menú con Escape.
   document.addEventListener(
     "keydown",
     (event) => {
@@ -149,6 +179,7 @@ function initPage() {
     { signal }
   );
 
+  // Cierra el menú si se pasa a escritorio.
   const desktopMedia = window.matchMedia(
     "(min-width: 1051px)"
   );
@@ -236,7 +267,7 @@ function initPage() {
     showHeader();
   }
 
-  // Modifica el aspecto del Header al entrar al contenido.
+  // Cambia el aspecto del Header al entrar al contenido.
   const aboutSection = document.getElementById(
     "acerca-de"
   );
@@ -287,9 +318,17 @@ function initPage() {
         event.preventDefault();
         closeMenu();
 
+        // Navegación hacia el inicio.
         if (targetId === "#inicio") {
-          gsap.to(window, {
-            duration: reduceMotion ? 0 : 0.85,
+          scrollToTopAnimation?.kill();
+
+          if (reduceMotion) {
+            window.scrollTo(0, 0);
+            return;
+          }
+
+          scrollToTopAnimation = gsap.to(window, {
+            duration: 0.85,
 
             scrollTo: {
               y: 0,
@@ -298,24 +337,30 @@ function initPage() {
 
             ease: "power2.inOut",
             overwrite: "auto",
+
+            onComplete: () => {
+              scrollToTopAnimation = null;
+            },
           });
 
           return;
         }
 
+        // Navegación hacia la sección seleccionada.
         scrollToSection(target);
       },
       { signal }
     );
   });
 
-  // Mantiene resaltada la sección visible.
+  // Identifica los enlaces del menú.
   const sectionLinks = Array.from(
     document.querySelectorAll(
       "#navMenu .nav-item"
     )
   );
 
+  // Relaciona cada enlace con su sección.
   const sections = sectionLinks
     .map((link) => {
       const id = link.getAttribute("href")?.slice(1);
@@ -329,6 +374,7 @@ function initPage() {
     })
     .filter((item) => item.section);
 
+  // Marca el enlace de la sección activa.
   function setActiveLink(activeLink) {
     sectionLinks.forEach((link) => {
       const isActive = link === activeLink;
@@ -351,6 +397,7 @@ function initPage() {
     });
   }
 
+  // Actualiza la sección activa según el scroll.
   function updateActiveSection() {
     const referencePosition =
       window.scrollY +
@@ -388,9 +435,10 @@ function initPage() {
     { signal }
   );
 
-  // Sincroniza las animaciones con la posición actual.
+  // Actualiza las posiciones de los ScrollTrigger.
   ScrollTrigger.refresh();
 
+  // Recupera el estado correcto del Header al cargar.
   if (comparison && !reduceMotion) {
     const comparisonTrigger =
       animations[0]?.scrollTrigger;
@@ -407,7 +455,7 @@ function initPage() {
 
   updateActiveSection();
 
-  // Limpia los recursos de esta inicialización.
+  // Limpia los recursos al cambiar de página.
   cleanup = () => {
     controller.abort();
 
@@ -425,11 +473,31 @@ function initPage() {
       trigger.kill();
     });
 
+    scrollToTopAnimation?.kill();
+    scrollToTopAnimation = null;
+
     gsap.killTweensOf(window);
 
-    destroyScrollProgress();
-    destroySectionTransitions();
-    destroyCommunityTransition();
+    // Restaura las propiedades de la comparación.
+    if (comparison) {
+      const afterBox = comparison.querySelector(
+        ".afterImage"
+      );
+
+      const afterImage = comparison.querySelector(
+        ".afterImage .comp-img"
+      );
+
+      gsap.set(
+        [afterBox, afterImage].filter(Boolean),
+        {
+          clearProps: "transform",
+        }
+      );
+    }
+
+    // Libera las cuatro transiciones y el progreso.
+    destroyGlobalTransitions();
 
     cleanup = null;
   };
